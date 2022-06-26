@@ -1,0 +1,5 @@
+rootProject.name = 'payment-processor-api'
+
+include 'external-processor-api'
+include 'payments-service'
+

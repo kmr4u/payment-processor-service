@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:tc:mysql:5.7:///test_database
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create

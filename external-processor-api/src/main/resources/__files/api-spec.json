@@ -1,0 +1,122 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Payment Processor API Specification",
+    "description": "Payment Processor API specifications",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8500",
+      "description": "local"
+    }
+  ],
+  "paths": {
+    "/payments/process": {
+      "post": {
+        "tags": [
+          "Payments"
+        ],
+        "summary": "Process a new payment",
+        "operationId": "process",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/{approvalCode}/cancel": {
+      "post": {
+        "tags": [
+          "Payments"
+        ],
+        "summary": "Cancel an existing payment",
+        "operationId": "cancel",
+        "parameters": [
+          {
+            "name": "approvalCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProcessRequest": {
+        "required": [
+          "cardNumber",
+          "cardExpiryDate",
+          "cardCvc",
+          "amount",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "cardNumber": {
+            "type": "string"
+          },
+          "cardExpiryDate": {
+            "type": "string"
+          },
+          "cardCvc": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          }
+        }
+      },
+      "ProcessResponse": {
+        "required": [
+          "approvalCode"
+        ],
+        "type": "object",
+        "properties": {
+          "approvalCode": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

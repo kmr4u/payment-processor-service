@@ -1,0 +1,25 @@
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger
+
+spring:
+  profiles:
+    include: ${ENV:local}
+  datasource:
+    url: jdbc:mysql://localhost:3306/db
+    username: root
+    password: password
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+http:
+  payments:
+    process: http://localhost:8500/payments/process
+    cancel: http://localhost:8500/payments/{approvalCode}/cancel
